@@ -9,5 +9,5 @@ import Foundation
 
 class Market {
     let marketName: String = "SMI"
-    var quotes: [Quote]? = []
+    var quotes: [Quote] = []
 }

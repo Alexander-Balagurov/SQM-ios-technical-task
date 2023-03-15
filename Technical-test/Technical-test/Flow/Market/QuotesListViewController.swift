@@ -8,8 +8,9 @@
 import UIKit
 
 class QuotesListViewController: UIViewController {
-    
-    private var market: Market
+
+    private let tableView: UITableView = .init(frame: .zero, style: .insetGrouped)
+    private let market: Market
 
     init(market: Market) {
         self.market = market
@@ -24,7 +25,41 @@ class QuotesListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .red
+        setup()
     }
-    
+}
+
+private extension QuotesListViewController {
+
+    func setup() {
+        title = market.marketName
+        setupTableView()
+    }
+
+    func setupTableView() {
+        view.addSubview(tableView)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate(
+            [
+                tableView.topAnchor.constraint(equalTo: view.topAnchor),
+                tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+                tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+            ]
+        )
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(QuotesTableViewCell.self)
+    }
+}
+
+extension QuotesListViewController: UITableViewDataSource, UITableViewDelegate {
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        market.quotes.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        UITableViewCell()
+    }
 }

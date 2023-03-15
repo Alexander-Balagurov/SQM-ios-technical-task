@@ -50,7 +50,7 @@ extension MarketFlowController {
         } catch {
             showAlert(message: error.localizedDescription)
         }
-        
+
         return market
     }
 
