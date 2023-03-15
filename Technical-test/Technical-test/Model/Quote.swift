@@ -14,4 +14,5 @@ struct Quote: Decodable {
     var readableLastChangePercent: String
     var last: String
     var variationColor: String
+    var key: String
 }

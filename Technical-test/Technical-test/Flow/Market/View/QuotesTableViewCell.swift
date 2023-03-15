@@ -71,14 +71,12 @@ private extension QuotesTableViewCell {
         stackView.alignment = .center
         stackView.spacing = UIDimension.layoutMargin
         contentView.addSubview(stackView)
-        NSLayoutConstraint.activate(
-            [
-                stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: UIDimension.layoutMargin2x),
-                stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -UIDimension.layoutMargin2x),
-                stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: UIDimension.layoutMargin2x),
-                stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -UIDimension.layoutMargin2x)
-            ]
-        )
+        NSLayoutConstraint.activate([
+            stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: UIDimension.layoutMargin2x),
+            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -UIDimension.layoutMargin2x),
+            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: UIDimension.layoutMargin2x),
+            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -UIDimension.layoutMargin2x)
+        ])
         configureArrangedSubviews(for: stackView)
     }
 

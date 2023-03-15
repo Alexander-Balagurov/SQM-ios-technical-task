@@ -11,6 +11,7 @@ class QuotesListViewController: UIViewController {
 
     private let tableView: UITableView = .init(frame: .zero, style: .insetGrouped)
     private let market: Market
+    var didSelectQuote: ((Quote) -> Void)?
 
     init(market: Market) {
         self.market = market
@@ -27,6 +28,12 @@ class QuotesListViewController: UIViewController {
 
         setup()
     }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        tableView.reloadData()
+    }
 }
 
 private extension QuotesListViewController {
@@ -39,14 +46,12 @@ private extension QuotesListViewController {
     func setupTableView() {
         view.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate(
-            [
-                tableView.topAnchor.constraint(equalTo: view.topAnchor),
-                tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-                tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-                tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-            ]
-        )
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(QuotesTableViewCell.self)
@@ -67,10 +72,15 @@ extension QuotesListViewController: UITableViewDataSource, UITableViewDelegate {
             lastValue: quote.last,
             currency: quote.currency,
             changePercent: quote.readableLastChangePercent,
-            isFavorite: Bool.random(),
+            isFavorite: market.isFavorite(quote),
             variationColor: quote.variationColor
         )
 
         return cell
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let quote = market.quotes[indexPath.row]
+        didSelectQuote?(quote)
     }
 }

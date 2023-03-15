@@ -10,6 +10,7 @@ import UIKit
 class QuoteDetailsViewController: UIViewController {
     
     private var quote: Quote? = nil
+    var onAddToFavorites: (() -> Void)?
     
     let symbolLabel = UILabel()
     let nameLabel = UILabel()
@@ -125,6 +126,6 @@ class QuoteDetailsViewController: UIViewController {
     }
 
     @objc func didPressFavoriteButton(_ sender:UIButton!) {
-        // TODO
+        onAddToFavorites?()
     }
 }

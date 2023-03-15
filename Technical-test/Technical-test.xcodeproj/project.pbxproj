@@ -22,6 +22,7 @@
 		9962C84E29C20CBC00C7CEC0 /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9962C84D29C20CBC00C7CEC0 /* UITableView+Extension.swift */; };
 		9962C85029C21FD000C7CEC0 /* UIDimension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9962C84F29C21FD000C7CEC0 /* UIDimension.swift */; };
 		9962C85629C227DC00C7CEC0 /* VariationColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9962C85529C227DC00C7CEC0 /* VariationColor.swift */; };
+		9962C85829C22F3A00C7CEC0 /* FavoritesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9962C85729C22F3A00C7CEC0 /* FavoritesService.swift */; };
 		99E69C1C29C1EA6400EA2E54 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99E69C1B29C1EA6400EA2E54 /* UIViewController+Extension.swift */; };
 /* End PBXBuildFile section */
 
@@ -43,6 +44,7 @@
 		9962C84D29C20CBC00C7CEC0 /* UITableView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
 		9962C84F29C21FD000C7CEC0 /* UIDimension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDimension.swift; sourceTree = "<group>"; };
 		9962C85529C227DC00C7CEC0 /* VariationColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VariationColor.swift; sourceTree = "<group>"; };
+		9962C85729C22F3A00C7CEC0 /* FavoritesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesService.swift; sourceTree = "<group>"; };
 		99E69C1B29C1EA6400EA2E54 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -110,6 +112,7 @@
 			isa = PBXGroup;
 			children = (
 				993B8C3129C0B72E002312D2 /* NetworkService.swift */,
+				9962C85729C22F3A00C7CEC0 /* FavoritesService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -230,6 +233,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9962C85829C22F3A00C7CEC0 /* FavoritesService.swift in Sources */,
 				1AA3C8B6263AB26C0041430A /* QuoteDetailsViewController.swift in Sources */,
 				993B8C3829C0CC45002312D2 /* MarketFlowController.swift in Sources */,
 				993B8C3629C0C24B002312D2 /* URLRequest+Extension.swift in Sources */,

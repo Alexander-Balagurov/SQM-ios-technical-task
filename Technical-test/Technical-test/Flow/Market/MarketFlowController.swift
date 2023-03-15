@@ -11,9 +11,12 @@ final class MarketFlowController: UIViewController {
 
     private let dataManager: DataManager
     private let navController = UINavigationController()
+    private let favoritesService: FavoritesService
+    private var market: Market?
 
-    init(networkService: NetworkService = .init()) {
+    init(networkService: NetworkService = .init(), favoritesService: FavoritesService = .init()) {
         dataManager = DataManager(networkService: networkService)
+        self.favoritesService = favoritesService
 
         super.init(nibName: nil, bundle: nil)
     }
@@ -38,6 +41,7 @@ extension MarketFlowController {
 
         Task {
             let market = await loadData()
+            self.market = market
             let quotesListViewController = makeQuoteListViewController(for: market)
             navController.setViewControllers([quotesListViewController], animated: false)
         }
@@ -48,6 +52,7 @@ extension MarketFlowController {
         do {
             let quotes = try await dataManager.fetchQuotes()
             market.quotes = quotes
+            market.favoriteQuotesKeys = favoritesService.favorites
         } catch {
             showAlert(message: error.localizedDescription)
         }
@@ -55,9 +60,31 @@ extension MarketFlowController {
         return market
     }
 
+    func updateFavorites(with quote: Quote) {
+        favoritesService.updateFavorites(with: quote.key)
+    }
+
     func makeQuoteListViewController(for market: Market) -> QuotesListViewController {
         let vc = QuotesListViewController(market: market)
+        vc.didSelectQuote = { [weak self] quote in
+            self?.navigateToQuoteDetailsViewController(quote)
+        }
 
         return vc
+    }
+
+    func navigateToQuoteDetailsViewController(_ quote: Quote) {
+        let vc = QuoteDetailsViewController(quote: quote)
+        vc.onAddToFavorites = { [weak self] in
+            self?.handleAddToFavoritesAction(quote)
+        }
+        
+        navController.pushViewController(vc, animated: true)
+    }
+
+    func handleAddToFavoritesAction(_ quote: Quote) {
+        favoritesService.updateFavorites(with: quote.key)
+        market?.favoriteQuotesKeys = favoritesService.favorites
+        navController.popViewController(animated: true)
     }
 }
