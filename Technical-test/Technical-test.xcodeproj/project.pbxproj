@@ -71,24 +71,13 @@
 				993B8C3929C0CC4D002312D2 /* Flow */,
 				993B8C3329C0C236002312D2 /* Common */,
 				993B8C3029C0B717002312D2 /* Service */,
-				1AA3C8B0263AA8220041430A /* Manager */,
 				1AA3C8AC263AA2D90041430A /* Model */,
-				1AA3C8AB263AA2D10041430A /* View */,
 				1AA3C896263AA2030041430A /* AppDelegate.swift */,
 				1AA3C89F263AA2040041430A /* Assets.xcassets */,
 				1AA3C8A1263AA2040041430A /* LaunchScreen.storyboard */,
 				1AA3C8A4263AA2040041430A /* Info.plist */,
 			);
 			path = "Technical-test";
-			sourceTree = "<group>";
-		};
-		1AA3C8AB263AA2D10041430A /* View */ = {
-			isa = PBXGroup;
-			children = (
-				1AA3C89A263AA2030041430A /* QuotesListViewController.swift */,
-				1AA3C8B5263AB26C0041430A /* QuoteDetailsViewController.swift */,
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 		1AA3C8AC263AA2D90041430A /* Model */ = {
@@ -136,9 +125,20 @@
 		993B8C3929C0CC4D002312D2 /* Flow */ = {
 			isa = PBXGroup;
 			children = (
-				993B8C3729C0CC45002312D2 /* MarketFlowController.swift */,
+				99E69C1D29C1EE5000EA2E54 /* Market */,
 			);
 			path = Flow;
+			sourceTree = "<group>";
+		};
+		99E69C1D29C1EE5000EA2E54 /* Market */ = {
+			isa = PBXGroup;
+			children = (
+				1AA3C8B0263AA8220041430A /* Manager */,
+				993B8C3729C0CC45002312D2 /* MarketFlowController.swift */,
+				1AA3C89A263AA2030041430A /* QuotesListViewController.swift */,
+				1AA3C8B5263AB26C0041430A /* QuoteDetailsViewController.swift */,
+			);
+			path = Market;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

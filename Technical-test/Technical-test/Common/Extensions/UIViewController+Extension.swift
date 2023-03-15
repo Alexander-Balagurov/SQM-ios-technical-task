@@ -7,6 +7,10 @@
 
 import UIKit
 
+private extension String {
+    static let ok = "OK"
+}
+
 extension UIViewController {
 
     func addChildController(
@@ -27,5 +31,14 @@ extension UIViewController {
         child.willMove(toParent: nil)
         child.view.removeFromSuperview()
         child.removeFromParent()
+    }
+
+    func showAlert(title: String? = nil, message: String? = nil, action: (() -> Void)? = nil) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(.init(title: .ok, style: .default, handler: { _ in
+            action?()
+        }))
+
+        present(alert, animated: true)
     }
 }
