@@ -9,6 +9,6 @@ import Foundation
 
 
 class Market {
-    let marketName:String = "SMI"
-    var quotes:[Quote]? = []
+    let marketName: String = "SMI"
+    var quotes: [Quote]? = []
 }
