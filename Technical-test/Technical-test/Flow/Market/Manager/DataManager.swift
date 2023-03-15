@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 class DataManager {
 
     private let networkService: NetworkService

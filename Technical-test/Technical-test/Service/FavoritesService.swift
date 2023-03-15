@@ -25,6 +25,5 @@ final class FavoritesService {
 
     func updateFavorites(with key: String) {
         favorites.formSymmetricDifference([key])
-        print(favorites)
     }
 }
