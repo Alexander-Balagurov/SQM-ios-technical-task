@@ -60,6 +60,17 @@ extension QuotesListViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        UITableViewCell()
+        let quote = market.quotes[indexPath.row]
+        let cell: QuotesTableViewCell = tableView.dequeueCell(indexPath: indexPath)
+        cell.viewConfiguration = .init(
+            name: quote.name,
+            lastValue: quote.last,
+            currency: quote.currency,
+            changePercent: quote.readableLastChangePercent,
+            isFavorite: Bool.random(),
+            variationColor: quote.variationColor
+        )
+
+        return cell
     }
 }

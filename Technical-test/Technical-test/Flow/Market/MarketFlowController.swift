@@ -32,6 +32,7 @@ final class MarketFlowController: UIViewController {
 extension MarketFlowController {
 
     func setup() {
+        view.backgroundColor = .white
         addChildController(navController, to: view)
         navController.navigationBar.prefersLargeTitles = true
 
