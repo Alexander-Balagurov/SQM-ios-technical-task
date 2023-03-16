@@ -9,8 +9,10 @@ import UIKit
 
 final class MarketFlowController: UIViewController {
 
-    private let dataManager: DataManager
     private let embeddedNavigationController = UINavigationController()
+    private lazy var activityIndicator = UIActivityIndicatorView(style: .large)
+
+    private let dataManager: DataManager
     private let favoritesService: FavoritesService
     private var market: Market?
 
@@ -38,30 +40,51 @@ private extension MarketFlowController {
         view.backgroundColor = .white
         addChild(embeddedNavigationController, to: view)
         embeddedNavigationController.navigationBar.prefersLargeTitles = true
+        setupActivityIndicator()
 
         Task {
-            let market = await loadData()
-            self.market = market
-            let quotesListViewController = makeQuoteListViewController(for: market)
-            embeddedNavigationController.setViewControllers([quotesListViewController], animated: false)
+            await reload()
         }
     }
 
-    func loadData() async -> Market {
+    func setupActivityIndicator() {
+        view.addSubview(activityIndicator)
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
+    }
+
+    func reload() async {
+        do {
+            activityIndicator.startAnimating()
+            let market = try await prepareMarket()
+            activityIndicator.stopAnimating()
+
+            showQuotesList(for: market)
+        } catch {
+            presentAlert(message: error.localizedDescription)
+        }
+    }
+
+    func prepareMarket() async throws -> Market {
         let market = Market()
         do {
             let quotes = try await dataManager.fetchQuotes()
             market.quotes = quotes
             market.favoriteQuotesKeys = favoritesService.favorites
         } catch {
-            presentAlert(message: error.localizedDescription)
+            throw error
         }
 
         return market
     }
 
-    func updateFavorites(with quote: Quote) {
-        favoritesService.updateFavorites(with: quote.key)
+    func showQuotesList(for market: Market) {
+        self.market = market
+        let quotesListViewController = makeQuoteListViewController(for: market)
+        embeddedNavigationController.setViewControllers([quotesListViewController], animated: false)
     }
 
     func makeQuoteListViewController(for market: Market) -> QuotesListViewController {
