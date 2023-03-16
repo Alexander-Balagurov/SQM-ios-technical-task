@@ -12,13 +12,11 @@ final class MarketFlowController: UIViewController {
     private let embeddedNavigationController = UINavigationController()
     private lazy var activityIndicator = UIActivityIndicatorView(style: .large)
 
-    private let dataManager: DataManager
-    private let favoritesService: FavoritesService
+    private let quotesRepo: QuotesRepo
     private var market: Market?
 
-    init(networkService: NetworkService = .init(), favoritesService: FavoritesService = .init()) {
-        dataManager = DataManager(networkService: networkService)
-        self.favoritesService = favoritesService
+    init(networkService: NetworkService = .init()) {
+        quotesRepo = QuotesRepo(networkService: networkService)
 
         super.init(nibName: nil, bundle: nil)
     }
@@ -71,9 +69,9 @@ private extension MarketFlowController {
     func prepareMarket() async throws -> Market {
         let market = Market()
         do {
-            let quotes = try await dataManager.fetchQuotes()
-            market.quotes = quotes
-            market.favoriteQuotesKeys = favoritesService.favorites
+            try await quotesRepo.fetchQuotes()
+            market.quotes = quotesRepo.quotes
+            market.favoriteQuotesKeys = quotesRepo.favorites
         } catch {
             throw error
         }
@@ -106,8 +104,8 @@ private extension MarketFlowController {
     }
 
     func didAddToFavorites(_ quote: Quote) {
-        favoritesService.updateFavorites(with: quote.key)
-        market?.favoriteQuotesKeys = favoritesService.favorites
+        quotesRepo.updateFavorites(with: quote.key)
+        market?.favoriteQuotesKeys = quotesRepo.favorites
         embeddedNavigationController.popViewController(animated: true)
     }
 }
