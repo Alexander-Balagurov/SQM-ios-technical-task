@@ -8,23 +8,23 @@
 import UIKit
 
 private extension String {
+
     static let ok = "OK"
 }
 
 extension UIViewController {
 
-    func addChildController(
+    func addChild(
         _ child: UIViewController,
         to container: UIView,
         fillContainer fill: Bool = true
     ) {
         addChild(child)
         container.addSubview(child.view)
-        child.didMove(toParent: self)
-
         if fill {
             child.view.frame = self.view.bounds
         }
+        child.didMove(toParent: self)
     }
 
     func removeChild(_ child: UIViewController) {
@@ -33,11 +33,13 @@ extension UIViewController {
         child.removeFromParent()
     }
 
-    func showAlert(title: String? = nil, message: String? = nil, action: (() -> Void)? = nil) {
+    func presentAlert(title: String? = nil, message: String? = nil, action: (() -> Void)? = nil) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(.init(title: .ok, style: .default, handler: { _ in
+        alert.addAction(
+            .init(title: .ok, style: .default, handler: { _ in
             action?()
-        }))
+        })
+        )
 
         present(alert, animated: true)
     }

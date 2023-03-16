@@ -7,8 +7,9 @@
 
 import Foundation
 
-class Market {
-    let marketName: String = "SMI"
+final class Market {
+
+    let name: String = "SMI"
     var quotes: [Quote] = []
     var favoriteQuotesKeys: Set<String> = []
 

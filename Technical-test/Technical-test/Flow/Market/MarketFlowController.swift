@@ -10,7 +10,7 @@ import UIKit
 final class MarketFlowController: UIViewController {
 
     private let dataManager: DataManager
-    private let navController = UINavigationController()
+    private let embeddedNavigationController = UINavigationController()
     private let favoritesService: FavoritesService
     private var market: Market?
 
@@ -32,18 +32,18 @@ final class MarketFlowController: UIViewController {
     }
 }
 
-extension MarketFlowController {
+private extension MarketFlowController {
 
     func setup() {
         view.backgroundColor = .white
-        addChildController(navController, to: view)
-        navController.navigationBar.prefersLargeTitles = true
+        addChild(embeddedNavigationController, to: view)
+        embeddedNavigationController.navigationBar.prefersLargeTitles = true
 
         Task {
             let market = await loadData()
             self.market = market
             let quotesListViewController = makeQuoteListViewController(for: market)
-            navController.setViewControllers([quotesListViewController], animated: false)
+            embeddedNavigationController.setViewControllers([quotesListViewController], animated: false)
         }
     }
 
@@ -54,7 +54,7 @@ extension MarketFlowController {
             market.quotes = quotes
             market.favoriteQuotesKeys = favoritesService.favorites
         } catch {
-            showAlert(message: error.localizedDescription)
+            presentAlert(message: error.localizedDescription)
         }
 
         return market
@@ -65,26 +65,26 @@ extension MarketFlowController {
     }
 
     func makeQuoteListViewController(for market: Market) -> QuotesListViewController {
-        let vc = QuotesListViewController(market: market)
-        vc.didSelectQuote = { [weak self] quote in
-            self?.navigateToQuoteDetailsViewController(quote)
+        let viewController = QuotesListViewController(market: market)
+        viewController.didSelectQuote = { [weak self] quote in
+            self?.showQuote(quote)
         }
 
-        return vc
+        return viewController
     }
 
-    func navigateToQuoteDetailsViewController(_ quote: Quote) {
-        let vc = QuoteDetailsViewController(quote: quote)
-        vc.onAddToFavorites = { [weak self] in
-            self?.handleAddToFavoritesAction(quote)
+    func showQuote(_ quote: Quote) {
+        let viewController = QuoteDetailsViewController(quote: quote)
+        viewController.onAddToFavorites = { [weak self] in
+            self?.didAddToFavorites(quote)
         }
         
-        navController.pushViewController(vc, animated: true)
+        embeddedNavigationController.pushViewController(viewController, animated: true)
     }
 
-    func handleAddToFavoritesAction(_ quote: Quote) {
+    func didAddToFavorites(_ quote: Quote) {
         favoritesService.updateFavorites(with: quote.key)
         market?.favoriteQuotesKeys = favoritesService.favorites
-        navController.popViewController(animated: true)
+        embeddedNavigationController.popViewController(animated: true)
     }
 }

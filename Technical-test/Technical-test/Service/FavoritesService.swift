@@ -8,6 +8,7 @@
 import Foundation
 
 private extension String {
+    
     static let favoritesKey = "favoritesKey"
 }
 

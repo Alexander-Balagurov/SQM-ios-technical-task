@@ -7,17 +7,17 @@
 
 import UIKit
 
-class QuoteDetailsViewController: UIViewController {
+final class QuoteDetailsViewController: UIViewController {
     
     private var quote: Quote? = nil
     var onAddToFavorites: (() -> Void)?
     
-    let symbolLabel = UILabel()
-    let nameLabel = UILabel()
-    let lastLabel = UILabel()
-    let currencyLabel = UILabel()
-    let readableLastChangePercentLabel = UILabel()
-    let favoriteButton = UIButton()
+    private lazy var symbolLabel = UILabel()
+    private lazy var nameLabel = UILabel()
+    private lazy var lastLabel = UILabel()
+    private lazy var currencyLabel = UILabel()
+    private lazy var readableLastChangePercentLabel = UILabel()
+    private lazy var favoriteButton = UIButton()
     
     init(quote: Quote) {
         super.init(nibName: nil, bundle: nil)
@@ -125,7 +125,7 @@ class QuoteDetailsViewController: UIViewController {
         ])
     }
 
-    @objc func didPressFavoriteButton(_ sender:UIButton!) {
+    @objc func didPressFavoriteButton(_ sender: UIButton) {
         onAddToFavorites?()
     }
 }

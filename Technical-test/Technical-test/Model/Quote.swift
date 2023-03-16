@@ -8,6 +8,7 @@
 import Foundation
 
 struct Quote: Decodable {
+    
     var symbol: String
     var name: String
     var currency: String

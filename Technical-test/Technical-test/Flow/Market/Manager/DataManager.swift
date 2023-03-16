@@ -7,10 +7,11 @@
 
 import Foundation
 
-class DataManager {
+final class DataManager {
 
     private let networkService: NetworkService
-    init(networkService: NetworkService, favoritesService: FavoritesService = .init()) {
+
+    init(networkService: NetworkService) {
         self.networkService = networkService
     }
 

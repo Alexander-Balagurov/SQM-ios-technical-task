@@ -14,5 +14,7 @@ private extension String {
 
 extension URLRequest {
 
-    static let getQuotesRequest: Self = URLRequest(url: URL(string: .path)!)
+    static var getQuotesRequest: URLRequest {
+        URLRequest(url: URL(string: .path)!)
+    }
 }

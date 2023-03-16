@@ -7,10 +7,11 @@
 
 import UIKit
 
-class QuotesListViewController: UIViewController {
+final class QuotesListViewController: UIViewController {
 
-    private let tableView: UITableView = .init(frame: .zero, style: .insetGrouped)
+    private lazy var tableView: UITableView = .init(frame: .zero, style: .insetGrouped)
     private let market: Market
+
     var didSelectQuote: ((Quote) -> Void)?
 
     init(market: Market) {
@@ -39,7 +40,7 @@ class QuotesListViewController: UIViewController {
 private extension QuotesListViewController {
 
     func setup() {
-        title = market.marketName
+        title = market.name
         setupTableView()
     }
 
