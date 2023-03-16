@@ -8,6 +8,7 @@
 import UIKit
 
 enum VariationColor: String {
+    
     case red
     case green
 

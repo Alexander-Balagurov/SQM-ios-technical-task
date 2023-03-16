@@ -14,6 +14,7 @@ private extension String {
 
 extension URLRequest {
 
+    /// In real app URLRequest would be created in proper way
     static var getQuotesRequest: URLRequest {
         URLRequest(url: URL(string: .path)!)
     }

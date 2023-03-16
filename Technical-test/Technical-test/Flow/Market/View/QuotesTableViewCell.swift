@@ -40,6 +40,7 @@ final class QuotesTableViewCell: UITableViewCell {
 extension QuotesTableViewCell {
 
     struct ViewConfiguration {
+        
         let name: String
         let lastValue: String
         let currency: String
